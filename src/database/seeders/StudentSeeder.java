@@ -6,11 +6,15 @@ package database.seeders;
 
 import database.connector.Connector;
 import java.sql.*;
+import java.time.LocalDate;
 import com.github.javafaker.*;
+import java.util.*;
 /**
  *
  * @author Windyl
  */
+
+
 public class StudentSeeder {
     
     public static void main(String args[]){
@@ -18,9 +22,6 @@ public class StudentSeeder {
        Faker faker = new Faker();   
       
        Connection connect = connector.getConnection();
-       String address = faker.address().cityName();
-       
-       System.out.println(address);
        
 //       String streetname = faker.address().streetName();
 //       String number = faker.address().buildingNumber();
@@ -28,18 +29,41 @@ public class StudentSeeder {
 //       
 //       System.out.println("Streetname:"+streetname+" Number:"+number+" City:"+city);
        
-    try{
+    try{ 
+        LocalDate date = LocalDate.now();
+        String[] splitdate = String.valueOf(date).split("-");
+        System.out.println(Arrays.toString(splitdate));
+        
        if(connect != null){
-           String select = "SELECT * FROM student";
-           Statement statement = connect.createStatement();
-           ResultSet query = statement.executeQuery(select);
+           for(int a = 0; a + 1 != 5; a++){
+            String[] years  = {"1st","2nd", "3rd" , "4th"};
+            String[] sections  = {"D","C","B","A"};
+            int rand = (int)Math.ceil( Math.random() * years.length - 1) ;
+            String firstname = faker.name().firstName();
+            String middlename = faker.name().lastName();
+            String lastname = faker.name().lastName();
+            String year = years[rand];  
+            String section = sections[rand];
+            String idnumber = faker.number().digits(4);
+            
+            System.out.println(splitdate[0]+"-"+idnumber);
+
+             
+            
            
-           
-           while(query.next()){
-               int id = query.getInt("student_id");
-                       
-               System.out.println(id);
+            
+          //Currently working on inserting the data in the database
+            
+     String query = "INSERT INTO student(firstname,lastname,middlename,lastname,year,section,id_number)"
+             +      "VALUES("+firstname+","+middlename+","+lastname+","+year+","+section+","+idnumber;       
+     Statement statement = connect.createStatement();
+     ResultSet result = statement.executeQuery(query);
+               
            }
+         
+           
+           
+         
            
        }
        
