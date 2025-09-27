@@ -26,7 +26,7 @@ public class StudentSeeder {
     
     try{ 
        if(connect != null){
-          for(int a = 0; a + 1 != 50; a++){
+          for(int a = 0; a + 1 != 450; a++){
             String[] years  = {"1st","2nd", "3rd" , "4th"};
             String[] sections  = {"D","C","B","A"};
             int rand = (int)Math.ceil( Math.random() * years.length - 1) ;
